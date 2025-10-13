@@ -1,103 +1,233 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useState, useEffect } from 'react';
+
+const Portfolio = () => {
+  const [displayedTexts, setDisplayedTexts] = useState<string[]>([]);
+  const texts = ['Eu sou desenvolvedor', 'Fullstack e Frontend'];
+
+  useEffect(() => {
+    let lineIndex = 0;
+    let charIndex = 0;
+    const interval = setInterval(() => {
+      if (lineIndex < texts.length) {
+        const currentLine = texts[lineIndex];
+        if (charIndex < currentLine.length) {
+          setDisplayedTexts((prev) => {
+            const newTexts = [...prev];
+            newTexts[lineIndex] = currentLine.substring(0, charIndex + 1);
+            return newTexts;
+          });
+          charIndex++;
+        } else {
+          lineIndex++;
+          charIndex = 0;
+        }
+      } else {
+        clearInterval(interval);
+      }
+    }, 150);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className='container'>
+      <header className='header'>
+        <h1>Marcos Vinicius</h1>
+        <nav className='nav'>
+          <a href='#about'>Sobre</a>
+          <a href='#projects'>Projetos</a>
+          <a href='#contact'>Contato</a>
+        </nav>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+      <main>
+        <section id='about' className='section about'>
+          <div className='typing-text-container'>
+            <h1 className='typing-text'>
+              {displayedTexts.map((text, index) => (
+                <span key={index} style={{ display: 'block' }}>
+                  {text}
+                </span>
+              ))}
+            </h1>
+          </div>
+          <div>
+            <h2>Sobre Mim</h2>
+            <p>
+              Sou um desenvolvedor de software apaixonado por criar soluções
+              elegantes e eficientes. Tenho experiência em desenvolvimento web
+              full-stack e frontend, com foco em React, Vue.js, Node.js, Java,
+              Spring e Quarkus. Estou sempre aprendendo novas tecnologias e
+              buscando aprimorar minhas habilidades.
+            </p>
+            <a
+              href='https://drive.google.com/file/d/1obKytsUxmKfk3D6cjkcMnWnQRMKl-ESy/view?usp=sharing'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='cv-button'
+            >
+              Baixar CV
+            </a>
+          </div>
+        </section>
+
+        <section id='skills' className='section'>
+          <h2>Habilidades</h2>
+          <div className='skills-grid'>
+            {[
+              'JavaScript',
+              'TypeScript',
+              'Java',
+              'Kotlin',
+              'React.js',
+              'Next.js',
+              'Vue.js',
+              'Nuxt.js',
+              'Vuetify',
+              'Vuex',
+              'HTML5',
+              'CSS3',
+              'Tailwind CSS',
+              'Redux',
+              'Node.js',
+              'Spring Boot',
+              'Quarkus',
+              'Express.js',
+              'Nest.js',
+              'RESTful APIs',
+              'React Native',
+              'Android',
+              'MongoDB',
+              'PostgreSQL',
+              'MySQL',
+              'Oracle',
+              'Firebase',
+              'Docker',
+              'Git',
+              'GitHub Actions',
+              'Jenkins',
+              'CI/CD',
+              'Jest',
+              'Cypress',
+              'Testes Unitários',
+              'Testes de Integração',
+              'TDD',
+              'Agile',
+              'Scrum',
+              'Kanban',
+            ].map((skill) => (
+              <div key={skill} className='skill-badge'>
+                <span>{skill}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id='projects' className='section projects'>
+          <h2>Projetos</h2>
+          <div className='projects-grid'>
+            <div className='project-card'>
+              <h3> Banco Algar</h3>
+              <p>
+                Essa API foi desenvolvida em Spring Boot, com a finalidade para
+                apresentar as funcionalidades de um banco. Foi implementado
+                todas as principais funções que um banco pode fazer.
+              </p>
+            </div>
+            <div className='project-card'>
+              <h3>Freelaah</h3>
+              <p>
+                Plataforma educacional inovadora que permite aos usuários se
+                inscreverem em cursos estruturados em trilhas de aprendizado,
+                possibilitando a aplicação prática dos conhecimen- tos
+                adquiridos em projetos colaborativos com empresas parceiras.
+              </p>
+            </div>
+            <div className='project-card'>
+              <h3>ChangeColor</h3>
+              <p>
+                ChangeColor é um aplicativo Android desenvolvido em Kotlin que
+                demonstra como alterar programaticamente a cor de fundo de uma
+                View. Ao clicar no botão flutuante (FAB), a cor de fundo da tela
+                muda aleatoriamente entre um conjunto pré-definido de cores.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id='contact' className='section contact'>
+          <h2>Contato</h2>
+          <div className='contact-links'>
+            <a
+              href='https://www.linkedin.com/in/marcosoliveirarocha/'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path d='M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z'></path>
+                <rect x='2' y='9' width='4' height='12'></rect>
+                <circle cx='4' cy='4' r='2'></circle>
+              </svg>
+            </a>
+            <a
+              href='https://github.com/marcosvinirocha'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path d='M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22'></path>
+              </svg>
+            </a>
+            <a href='mailto:marcosvinicius.udia1256@gmail.com'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'></path>
+                <polyline points='22,6 12,13 2,6'></polyline>
+              </svg>
+            </a>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className='footer'>
+        <p>
+          &copy; {new Date().getFullYear()} Marcos Vinicius. Todos os direitos
+          reservados.
+        </p>
       </footer>
     </div>
   );
-}
+};
+
+export default Portfolio;
