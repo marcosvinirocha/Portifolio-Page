@@ -63,7 +63,7 @@ const Portfolio = () => {
               buscando aprimorar minhas habilidades.
             </p>
             <a
-              href='https://drive.google.com/file/d/1obKytsUxmKfk3D6cjkcMnWnQRMKl-ESy/view?usp=sharing'
+              href='https://drive.google.com/file/d/1J5HIyKB_BCcPbwce1UqNZsOV2ZwEEnY1/view?usp=sharing'
               target='_blank'
               rel='noopener noreferrer'
               className='cv-button'
